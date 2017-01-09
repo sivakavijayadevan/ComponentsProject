@@ -1,12 +1,13 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MultiLangLabelComponent } from './multiLangLabel/multiLangLabel.component';
+
+import {MultiLangLabelComponentModule} from './@MultilingualComponent/index';
 
 import { AppComponent }  from './app.component';
 
 @NgModule({
-  imports:      [ BrowserModule ],
-  declarations: [ AppComponent, MultiLangLabelComponent ],
+  imports:      [ BrowserModule, MultiLangLabelComponentModule ],
+  declarations: [ AppComponent],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

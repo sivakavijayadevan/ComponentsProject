@@ -1,0 +1,398 @@
+<div [hidden]="!isLoading" id="loading-indicator">
+    <loading-indicator [isLoading]="isLoading"></loading-indicator>
+</div>
+<div [hidden]="isLoading" id="song-view">
+    <h3 class="title"> Song Detail</h3>
+    <div id="basic">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <h3 class="title">
+                    <dpd-lang-display [displayvalue]="song.title" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </h3>
+                <p>
+                    <dpd-lang-display [displayvalue]="song.description" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3">
+                <p><strong>Language :</strong> {{ song.language.name}}</p>
+                <p><strong>Mood :</strong> {{ song.mood.name}}</p>
+                <p>
+                    <strong>Publish Status :</strong> <span class="label label-danger" *ngIf="songRoot.published_status==0 && !isPublished">Not Yet Published</span>
+                    <span class="label label-warning" *ngIf="songRoot.published_status==0 && isPublished">Modified</span>
+                    <span class="label label-info" *ngIf="songRoot.published_status==1">Request To Publish</span>
+                    <span class="label label-success" *ngIf="songRoot.published_status==2">Published</span>
+                </p>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <p> <strong>Song Type :</strong> {{ song.type.name}}</p>
+                <p> <strong>Song Posted On :</strong> {{ formatDate(song.published_on) }}</p>
+                <button *ngIf="songRoot.published_status ==1 && loginData.roleid == 2" class="btn btn-primary btn-sm " (click)="publishSong() ">
+                   Publish
+                </button>
+
+                <button *ngIf="songRoot.published_status ==2 && loginData.roleid == 2" class="btn btn-primary btn-sm " (click)="previewSongPublish('live') ">
+                   Live Preview
+                </button>
+
+                <button *ngIf="songRoot.published_status ==1 && loginData.roleid == 2" class="btn btn-primary btn-sm " (click)="previewSongPublish() ">
+                   Preview
+                </button>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <strong>Thumbnail</strong>
+                <img class="img-responsive" alt="img" [src]="song.thumbnail" onError="this.src='/src/assets/img/images/doopaadoo.png'" />
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <strong>Poster</strong>
+                <img class="img-responsive" alt="img" [src]="song.poster" onError="this.src='/src/assets/img/images/doopaadoo_logo.png'" />
+            </div>
+        </div>
+    </div>
+    <div id="item">
+        <div class="form-sub-heading">
+            Item
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <h4>AWS</h4>
+                    <p *ngIf="song.item.video.aws.link"><strong>Video Link :</strong> <a href="{{ song.item.video.aws.link}}" target="_blank">{{ song.item.video.aws.link}}</a></p>
+                    <p *ngIf="song.item.video.aws.alternative_link"><strong>Alternative Video Link :</strong> <a href="{{ song.item.video.aws.alternative_link}}" target="_blank">{{ song.item.video.aws.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.audio.aws.link"><strong>Audio Link :</strong> <a href="{{ song.item.audio.aws.link}}" target="_blank">{{ song.item.audio.aws.link}}</a></p>
+                    <p *ngIf="song.item.audio.aws.alternative_link"><strong>Alternative Audio Link :</strong> <a href="{{ song.item.audio.aws.alternative_link}}" target="_blank">{{ song.item.audio.aws.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.karaoke.aws.link"><strong>Karaoke Link :</strong> <a href="{{ song.item.karaoke.aws.link}}" target="_blank">{{ song.item.karaoke.aws.link}}</a></p>
+                    <p *ngIf="song.item.karaoke.aws.alternative_link"><strong>Alternative Karaoke Link :</strong> <a href="{{ song.item.karaoke.aws.alternative_link}}" target="_blank">{{ song.item.karaoke.aws.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.lyric.aws.link"><strong>Lyric Link :</strong> <a href="{{ song.item.lyric.aws.link}}" target="_blank">{{ song.item.lyric.aws.link}}</a></p>
+                    <p *ngIf="song.item.lyric.aws.alternative_link"><strong>Alternative Lyric Link :</strong> <a href="{{ song.item.lyric.aws.alternative_link}}" target="_blank">{{ song.item.lyric.aws.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.making.aws.link"><strong>Making Link :</strong> <a href="{{ song.item.making.aws.link}}" target="_blank">{{ song.item.making.aws.link}}</a></p>
+                    <p *ngIf="song.item.making.aws.alternative_link"><strong>Alternative Making Link :</strong> <a href="{{ song.item.making.aws.alternative_link}}" target="_blank">{{ song.item.making.aws.alternative_link}}</a></p>
+                    <br />
+                    <h4>Akamai</h4>
+                    <p *ngIf="song.item.video.akamai.link"><strong>Video Link :</strong> <a href="{{ song.item.video.akamai.link}}" target="_blank">{{ song.item.video.akamai.link}}</a></p>
+                    <p *ngIf="song.item.video.akamai.alternative_link"><strong>Alternative Video Link :</strong> <a href="{{ song.item.video.akamai.alternative_link}}" target="_blank">{{ song.item.video.akamai.alternative_link}}</a></p>
+
+                    <p *ngIf=""><strong>Audio Link :</strong> <a href="{{ song.item.audio.akamai.link}}" target="_blank">{{ song.item.audio.akamai.link}}</a></p>
+                    <p *ngIf=""><strong>Alternative Audio Link :</strong> <a href="{{ song.item.audio.akamai.alternative_link}}" target="_blank">{{ song.item.audio.akamai.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.karaoke.akamai.link"><strong>Karaoke Link :</strong> <a href="{{ song.item.karaoke.akamai.link}}" target="_blank">{{ song.item.karaoke.akamai.link}}</a></p>
+                    <p *ngIf="song.item.karaoke.akamai.alternative_link"><strong>Alternative Karaoke Link :</strong> <a href="{{ song.item.karaoke.akamai.alternative_link}}"
+                            target="_blank">{{ song.item.karaoke.akamai.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.lyric.akamai.link"><strong>Lyric Link :</strong> <a href="{{ song.item.lyric.akamai.link}}" target="_blank">{{ song.item.lyric.akamai.link}}</a></p>
+                    <p *ngIf="song.item.lyric.akamai.alternative_link"><strong>Alternative Lyric Link :</strong> <a href="{{ song.item.lyric.akamai.alternative_link}}" target="_blank">{{ song.item.lyric.akamai.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.making.akamai.link"><strong>Making Link :</strong> <a href="{{ song.item.making.akamai.link}}" target="_blank">{{ song.item.making.akamai.link}}</a></p>
+                    <p *ngIf="song.item.making.akamai.alternative_link"><strong>Alternative Making Link :</strong> <a href="{{ song.item.making.akamai.alternative_link}}" target="_blank">{{ song.item.making.akamai.alternative_link}}</a></p>
+                    <br />
+                    <h4>Ventuno</h4>
+                    <p *ngIf="song.item.video.ventuno.link"><strong>Video Link :</strong> <a href="{{ song.item.video.ventuno.link}}" target="_blank">{{ song.item.video.ventuno.link}}</a></p>
+                    <p *ngIf="song.item.video.ventuno.alternative_link"><strong>Alternative Video Link :</strong> <a href="{{ song.item.video.ventuno.alternative_link}}" target="_blank">{{ song.item.video.ventuno.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.audio.ventuno.link"><strong>Audio Link :</strong> <a href="{{ song.item.audio.ventuno.link}}" target="_blank">{{ song.item.audio.ventuno.link}}</a></p>
+                    <p *ngIf="song.item.audio.ventuno.alternative_link"><strong>Alternative Audio Link :</strong> <a href="{{ song.item.audio.ventuno.alternative_link}}" target="_blank">{{ song.item.audio.ventuno.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.karaoke.ventuno.link"><strong>Karaoke Link :</strong> <a href="{{ song.item.karaoke.ventuno.link}}" target="_blank">{{ song.item.karaoke.ventuno.link}}</a></p>
+                    <p *ngIf="song.item.karaoke.ventuno.alternative_link"><strong>Alternative Karaoke Link :</strong> <a href="{{ song.item.karaoke.ventuno.alternative_link}}"
+                            target="_blank">{{ song.item.karaoke.ventuno.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.lyric.ventuno.link"><strong>Lyric Link :</strong> <a href="{{ song.item.lyric.ventuno.link}}" target="_blank">{{ song.item.lyric.ventuno.link}}</a></p>
+                    <p *ngIf="song.item.lyric.ventuno.alternative_link"><strong>Alternative Lyric Link :</strong> <a href="{{ song.item.lyric.ventuno.alternative_link}}" target="_blank">{{ song.item.lyric.ventuno.alternative_link}}</a></p>
+
+                    <p *ngIf="song.item.making.ventuno.link"><strong>Making Link :</strong> <a href="{{ song.item.making.ventuno.link}}" target="_blank">{{ song.item.making.ventuno.link}}</a></p>
+                    <p *ngIf="song.item.making.ventuno.alternative_link"><strong>Alternative Making Link :</strong> <a href="{{ song.item.making.ventuno.alternative_link}}" target="_blank">{{ song.item.making.ventuno.alternative_link}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="info">
+        <div class="form-sub-heading">
+            Info
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <strong>Lyric Languages :</strong>
+                    <ul>
+                        <li *ngFor="let lyric of song.info.lyric_languages;let i = index">
+                            {{lyric.code}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Instruments'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <ul>
+                        <li *ngFor="let instrument of song.info.instruments;let i = index">
+                            <dpd-lang-display [displayvalue]="instrument.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Thaalams'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <ul>
+                        <li *ngFor="let thaalam of song.info.thaalams;let i = index">
+                            <dpd-lang-display [displayvalue]="thaalam.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Lyric Geners'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+
+                    <ul>
+                        <li *ngFor="let lygen of song.info.lyric_genres;let i = index">
+                            <dpd-lang-display [displayvalue]="lygen.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Music Geners'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <ul>
+                        <li *ngFor="let data of song.info.music_genres;let i = index">
+                            <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Song Moods'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <ul>
+                        <li *ngFor="let data of song.info.song_moods;let i = index">
+                            <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Best Season To Listen'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <ul>
+                        <li *ngFor="let data of song.info.best_seasons_to_listen;let i = index">
+                            <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Lyric Styles'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <ul>
+                        <li *ngFor="let data of song.info.lyric_styles;let i = index">
+                            <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <p> <strong>Launch Date :</strong> {{ formatDate(song.info.launch_date)}}</p>
+                    <p> <strong>Duration :</strong> {{ song.info.duration }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="callertunes">
+        <div class="form-sub-heading">
+            Callertunes
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="col-md-12 col-lg-12" *ngFor="let data of song.callertunes;let i = index">
+                    <p *ngIf="data.provider.name"> <strong>Provider :</strong> {{ data.provider.name}}</p>
+                    <p *ngIf="data.url"> <strong>Url :</strong><a href="{{data.url}}" target="_blank"> {{ data.url }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="phonetic-lyrics">
+        <div class="form-sub-heading">
+            Phonetic Lyrics
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="col-md-12 col-lg-12" *ngFor="let item of song.phonetic_lyrics;let i = index">
+                    <strong *ngIf="item.data">{{ item.language.name}} :</strong>
+                    <p *ngIf="item.data" [innerHTML]="item.data"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="lyrics">
+        <div class="form-sub-heading">
+            Lyrics
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="col-md-12 col-lg-12" *ngFor="let item of song.lyrics;let i = index">
+                    <strong *ngIf="item.data">{{ item.language.name}} :</strong>
+                    <p *ngIf="item.data" [innerHTML]="item.data"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="critics">
+        <div class="form-sub-heading">
+            Critics
+        </div>
+        <div class="critic info" *ngFor="let critic of song.critics;let i = index">
+            <div class="row">
+                <div class="col-md-2 col-lg-2">
+                    <img class="img-responsive" alt="img" [src]="critic.author.image"  onError="this.src='/src/assets/img/avatar.png'" />
+                </div>
+                <div class="col-md-8 col-lg-8">
+                    <h3>Author :
+                        <dpd-lang-display [displayvalue]="critic.author.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </h3>
+                    <p><strong>Rating :</strong> {{ critic.rating}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <p><strong>Vocal Score :</strong> {{ critic.review.vocal.score}}</p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Vocal Comment'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <dpd-lang-display [displayvalue]="critic.review.vocal.comment" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <p><strong>Instrument Score :</strong> {{ critic.review.instrument.score}}</p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Instrument Comment'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <dpd-lang-display [displayvalue]="critic.review.instrument.comment" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <p><strong>Overall Score :</strong> {{ critic.review.overall.score}}</p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Overall Comment'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <dpd-lang-display [displayvalue]="critic.review.overall.comment" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <p><strong>Tune Score :</strong> {{ critic.review.tune.score}}</p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Tune Comment'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <dpd-lang-display [displayvalue]="critic.review.tune.comment" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <p><strong>Lyric Score :</strong> {{ critic.review.lyric.score}}</p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Lyric Comment'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <dpd-lang-display [displayvalue]="critic.review.lyric.comment" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="musics">
+        <div class="form-sub-heading">
+            Musics
+        </div>
+        <div class="music info" *ngFor="let music of song.musics;let i = index">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <dpd-lang-display [displayvalue]="'Instrument'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <dpd-lang-display [displayvalue]="music.instrument.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <dpd-lang-display [displayvalue]="'Players'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let player of music.players">
+                        <dpd-lang-display [displayvalue]="player.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="credit">
+        <div class="form-sub-heading">
+            Credit
+        </div>
+        <div class="credit info">
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Mastered By'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let master of song.credit.masters">
+                        <dpd-lang-display [displayvalue]="master.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Lyricist(s)'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let lyricist of song.credit.lyricists">
+                        <dpd-lang-display [displayvalue]="lyricist.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Sound Engineer'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let soundEng of song.credit.sound_engineers">
+                        <dpd-lang-display [displayvalue]="soundEng.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Arranged By'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.arrangers">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Lyric Video Images'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.lyric_video_images">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Composer(s)'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.composers">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Lyric Video Senior Editor'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.lyric_video_senior_editor">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Recorded At'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.recorded_studios">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Lyric Video Editor'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.lyric_video_editor">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Producer(s)'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.producers">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Manager Of Visual Content'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.manager_of_visual_content">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <dpd-lang-display [displayvalue]="'Mixed By'" [multilingual]="songViewLang" [valuekey]="" [islable]="true"></dpd-lang-display>
+                    <p *ngFor="let data of song.credit.mixers">
+                        <dpd-lang-display [displayvalue]="data.name" [multilingual]="" [valuekey]="songViewLang" [islable]="false"></dpd-lang-display>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

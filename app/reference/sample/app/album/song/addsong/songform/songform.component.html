@@ -1,0 +1,171 @@
+<!--<div [hidden]="!isLoading" id="loading-indicator">
+    <loading-indicator [isLoading]="isLoading"></loading-indicator>
+</div>-->
+<dashboard-layout pageTitle="Song" class="contentpage">
+    <dpd-album-view [viewlang]="languageId" [albumid]="albumId" [isfullview]="false"></dpd-album-view>
+    <div class="form-header songFormLang">
+        <dpd-radio-button [options]="languageRadioOption" (selectChange)="langSelect($event)"></dpd-radio-button>
+    </div>
+    <div class="song-form-group">
+        <div>
+            <button class="copy-btn" *ngIf="loginData.roleid != 2" (click)="copyFrom('en', 'hi')"><span>Copy from english to hindi & telugu</span></button>
+        </div>
+        <div class="block-element" #languageElement>
+            <dpd-lang-select class="col-md-6" [displayname]="'language'" [placeholder]="'language'" [(inputvalue)]="songRootObject['song']['language']" [valuekey]="'code'" [selectoption]="langSelectOption" [optiondisplaykey]="'name'" [optionkey]="'code'" (datachange)="selectionChange($event)"
+                [updatekey]="'language'">
+            </dpd-lang-select>
+        </div>
+        <div class="block-element" #title>
+            <dpd-lang-input class="col-md-6" [displayname]="'Title'" [placeholder]="'Title'" [(inputvalue)]="songRootObject['song']['title']" [multilingual]="languageId" [valuekey]="languageId">
+            </dpd-lang-input>
+        </div>
+        <div class="block-element" #description>
+            <dpd-lang-text-area class="col-md-6" [displayname]="'Description'" [placeholder]="'Description'" [multilingual]="languageId" [inputvalue]="songRootObject['song']['description']" [valuekey]="languageId">
+            </dpd-lang-text-area>
+        </div>
+        <div class="block-element">
+            <dpd-lang-input class="col-md-6" [displayname]="'Thumbnail'" [validate]="'url'" [placeholder]="'Thumbnail'" [inputvalue]="songRootObject['song']" [valuekey]="'thumbnail'">
+            </dpd-lang-input>
+        </div>
+        <div class="block-element">
+            <dpd-lang-input class="col-md-6" [displayname]="'Poster'" [validate]="'url'" [placeholder]="'Poster'" [inputvalue]="songRootObject['song']" [valuekey]="'poster'">
+            </dpd-lang-input>
+        </div>
+        <div class="block-element">
+            <dpd-lang-select class="col-md-6" [displayname]="'Song Type'" [placeholder]="'Type'" [(inputvalue)]="songRootObject['song']['type']" [valuekey]="'slug'" [selectoption]="songTypeSelectOption" [optiondisplaykey]="'name'" [optionkey]="'slug'" (datachange)="selectionChange($event)"
+                [updatekey]="'type'">
+            </dpd-lang-select>
+        </div>
+        <div class="block-element">
+            <dpd-lang-select class="col-md-6" [displayname]="'Song Mood'" [placeholder]="'Mood'" [(inputvalue)]="songRootObject['song']['mood']" [valuekey]="'id'" [selectoption]="songModeSelectOption" [optiondisplaykey]="'name'" [optionkey]="'id'" (datachange)="selectionChange($event)"
+                [updatekey]="'mood'">
+            </dpd-lang-select>
+        </div>
+
+        <div class="block-element">
+            <dpd-date-time class="col-md-6" (datachange)="dateChangeEvent($event)" [displayname]="'Posted On'" [keytochange]="'published_on'" [inputkey]="'published_on'" [inputvalue]="songRootObject['song']"></dpd-date-time>
+        </div>
+
+        <div class="form-sub-heading">
+            Item
+        </div>
+
+        <dpd-radio-button [vertical]="true" [options]="serverVideoOptions" (selectChange)="serverSelect($event)"></dpd-radio-button>
+
+        <div *ngFor="let key of itemArray; let i = index">
+            <div class="row rm-margin-l-r">
+                <div class="form-sub-header">
+                    {{key}} - {{serverSeleted}}
+                </div>
+            </div>
+            <div class="row rm-margin-l-r item-continer">
+                <div class="col-md-4">
+                    <dpd-lang-input [displayname]="'Link'" [validate]="'url'" [inputvalue]="songRootObject['song']['item'][key][serverSeleted]" [valuekey]="'link'"></dpd-lang-input>
+                    <dpd-lang-validator class="col-lg-offset-3 p-left-validation" [(inputvalue)]="songRootObject['song']['item'][key]" [valuekey]="'link'" [validationtype]="'server'"></dpd-lang-validator>
+                </div>
+
+                <div class="col-md-4">
+                    <dpd-lang-input [displayname]="'Alt. Link'" [validate]="'url'" [inputvalue]="songRootObject['song']['item'][key][serverSeleted]" [valuekey]="'alternative_link'"></dpd-lang-input>
+                    <dpd-lang-validator class="col-lg-offset-3 p-left-validation" [(inputvalue)]="songRootObject['song']['item'][key]" [valuekey]="'alternative_link'" [validationtype]="'server'"></dpd-lang-validator>
+                </div>
+
+                <div class="col-md-4">
+                    <dpd-lang-input [displayname]="'Key'" [inputvalue]="songRootObject['song']['item'][key][serverSeleted]" [valuekey]="'key'"></dpd-lang-input>
+                    <dpd-lang-validator class="col-lg-offset-3 p-left-validation" [(inputvalue)]="songRootObject['song']['item'][key]" [valuekey]="'key'" [validationtype]="'server'"></dpd-lang-validator>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-sub-heading" #info>
+            INFO
+        </div>
+        <div class="block-element">
+            <dpd-lang-select class="col-md-8" [displayname]="'lyric languages'" [multiple]="true" [(inputvalue)]="songRootObject['song']['info']['lyric_languages']" [valuekey]="'code'" [selectoption]="lyricLangOption" [optiondisplaykey]="'name'" [optionkey]="'code'"
+                (datachange)="selectionChange($event)" [updatekey]="'lyric_languages'">
+            </dpd-lang-select>
+        </div>
+        <div class="block-element" *ngFor="let key of infoArray; let i = index">
+            <dpd-lang-input class="col-md-8" [displayname]="key" [multiple]="true" [multilingual]="languageId" [inputvalue]="songRootObject['song']['info'][key]" [valuekey]="languageId">
+            </dpd-lang-input>
+        </div>
+
+
+        <div class="block-element">
+            <dpd-duration class="col-md-8" (datachange)="durationChange($event)" [displayname]="'Duration Time'" [inputvalue]="songRootObject['song']['info']" [inputkey]="'duration'">
+            </dpd-duration>
+        </div>
+
+        <div class="form-sub-heading">
+            <div class="pull-left"> Callertune</div>
+            <div class="pull-right criticsbut">
+                <button *ngIf="loginData.roleid != 2" (click)="addCallerTune()" class="add"> Add Callertune</button>
+            </div>
+        </div>
+        <div *ngFor="let item of songRootObject['song']['callertunes']; let i = index" style="border:2px solid #000; margin-top:5px;">
+            <div class="block-element">
+                <dpd-lang-select class="col-md-6" [displayname]="'provider'" [(inputvalue)]="item['provider']" [valuekey]="'id'" [optionkey]="'id'" [selectoption]="callerToneOption" [optiondisplaykey]="'name'" (datachange)="selectionChange($event, i)" [updatekey]="'provider'">
+                </dpd-lang-select>
+            </div>
+            <div class="block-element">
+                <dpd-lang-input class="col-md-6" [displayname]="'Url'" [validate]="'url'" [inputvalue]="item" [valuekey]="'url'">
+                </dpd-lang-input>
+            </div>
+        </div>
+
+        <div class="form-sub-heading">
+            Phonetic Lyrics
+        </div>
+        <dpd-lang-lyrics [inputvalue]="songRootObject['song']['phonetic_lyrics']">
+        </dpd-lang-lyrics>
+
+        <div class="form-sub-heading">
+            Lyrics
+        </div>
+        <dpd-lang-lyrics [inputvalue]="songRootObject['song']['lyrics']">
+        </dpd-lang-lyrics>
+
+        <dpd-lang-musics [inputvalue]="songRootObject['song']['musics']" [multilingual]="languageId">
+        </dpd-lang-musics>
+
+        <dpd-lang-sorting [inputvalue]="songRootObject" [multilingual]="languageId">
+        </dpd-lang-sorting>
+
+        <div #criticss>
+            <dpd-lang-critics (datachange)="selectionChange($event)" [inputvalue]="songRootObject['song']['critics']" [multilingual]="languageId">
+            </dpd-lang-critics>
+        </div>
+
+        <div class="active-continer row">
+            <div class="col-md-3 col-xs-3 col-lg-3">
+                <label>Status</label>
+            </div>
+            <div class="col-md-9 col-xs-9 col-lg-9">
+                <input type="radio" class="radio-input" [disabled]="loginData.roleid == 2" name="active" id="active" (click)="activeClick(true)" [checked]="songRootObject['song']['active']" />
+                <label class="radio-label" for="active">ACTIVE</label>
+
+                <input type="radio" class="radio-input" [disabled]="loginData.roleid == 2" name="active" id="inactive" (click)="activeClick(false)" [checked]="!songRootObject['song']['active']" />
+                <label class="radio-label" for="inactive">INACTIVE</label>
+            </div>
+        </div>
+        <dpd-error-box [error]="error"></dpd-error-box>
+        <button *ngIf="songId && songRootInfo.published_status == 0 && loginData.roleid == 1" class="btn btn-request song-button" (click)="requsetPublishSong() ">
+        <span>Request To Publish</span>
+    </button>
+        <button *ngIf="songId && loginData.roleid == 1" class="btn btn-primary song-button" (click)="previewSongPublish()">
+        <span>Preview</span>
+    </button>
+        <button style="position:fixed; top:90px; right:5px;" *ngIf="!songId && loginData.roleid == 1" [disabled]="isOn" class="btn" (click)="saveBtn($event)"><span>Save</span></button>
+        <button style="position:fixed; top:90px; right:5px;" *ngIf="songId && loginData.roleid == 1" [disabled]="isOn" class="btn" (click)="editBtn($event)"><span>Save</span></button>
+        <div class="back-bt">
+            <button class="btn btn-circle back" *ngIf="songId" (click)="backcall($event)"><span class="btn-span"></span></button>
+        </div>
+
+        <button *ngIf="songId && loginData.roleid == 1" class="btn-download-link" (click)="downloadXML() ">
+        <span>Download Xml</span>
+    </button>
+        <button *ngIf="songId && loginData.roleid == 1" class="btn-download-link" (click)="downloadPublishJson() ">
+        <span>Download Json</span>
+    </button>
+
+    </div>
+</dashboard-layout>

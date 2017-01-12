@@ -1,0 +1,24 @@
+/*.form-header {
+    //margin-top: 10px;
+    //margin-bottom: 10px;
+    text-align: left;
+    padding-left: 25px;
+    position: static;
+}
+
+aa{
+    //margin-top: 0;
+    position: static;
+}
+*/
+.title{
+    margin-top: 0px;
+}
+dpd-radio-button {
+    position: fixed;
+    right: 2px;
+    z-index: 100;
+}
+.details-view{
+    margin-right: 40px;
+}

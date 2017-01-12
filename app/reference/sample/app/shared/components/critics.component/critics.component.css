@@ -1,0 +1,29 @@
+.form-sub-heading {
+    background-color: #222D32;
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: bold;
+    display: block;
+    padding-bottom: 33px;
+}
+.author-img {
+    height: 50px;
+}
+
+.add:before    { 
+    content: "\271A"; 
+    background-color: rebeccapurple;
+}
+
+.add{
+    background-color: rebeccapurple;
+}
+
+.criticsbut{
+     background-color: rebeccapurple;
+}
+
+.block-element {
+    display: block;
+    overflow: hidden;
+}

@@ -1,0 +1,50 @@
+.title{
+    margin-top: 0px;
+}
+dpd-radio-button {
+    position: fixed;
+    right: 2px;
+    z-index: 100;
+}
+.details-view{
+    padding-right: 30px;
+}
+#album-view {
+    border: 1px solid #ddd;
+    background-color: #FFF;
+    box-shadow: 0px 0px 8px -5px #000;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+
+.error-btn{
+    cursor: pointer;
+    display: inline-table;
+    padding: 10px;
+}
+
+.errormessage{
+    color:#a94442;
+    font-weight: 600;
+    line-height: 2px;
+} 
+
+.error-list {
+    position: fixed;
+    top: 300px;
+    right: 100px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    -webkit-transition: all 1s ease ;
+   -moz-transition: all 1s ease ;
+   transition: all 1s ease ;
+       max-height: 200px;
+    overflow: auto;
+}
+
+.error-btn{
+    cursor: pointer;
+    display: inline-table;
+    padding: 10px;
+}

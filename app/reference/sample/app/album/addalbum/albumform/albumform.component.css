@@ -1,0 +1,112 @@
+.album-form-group {
+    padding-left: 20px;
+}
+
+.copy-btn {
+    background-color: chocolate;
+    border-radius: 2px;
+     color: #fff;
+     display: inline-block;
+     border: none;
+}
+
+.form-group-bt {
+    padding-bottom: 10px;
+}
+.errormessage{
+    color:#a94442;
+    font-weight: 600;
+    line-height: 2px;
+}
+
+.btn-continer {
+    display: block;
+    margin-top: 10px;
+}
+
+.active-continer {
+    margin-top: 10px;
+    margin-left: -10px;
+}
+.radio-input {
+    margin-right: 10px;
+}
+
+.btn {
+    position: relative;
+    display: inline-table;    
+    padding: 0;
+    overflow: hidden;
+    border-width: 0;
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    background-color: #3c8dbc;
+    color: #ecf0f1;
+    transition: background-color .3s;
+}
+
+.btn-request{
+    background-color: chocolate;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn:hover, .btn:focus {
+    background-color: #3c8dbc;
+}
+
+.btn > * {
+    position: relative;
+}
+
+.btn span {
+    display: block;
+    padding: 8px 22px;
+    font-size: 1.2em;
+}
+
+.btn:before {
+    content: "";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    display: block;
+    width: 0;
+    padding-top: 0;
+        
+    border-radius: 100%;
+    
+    background-color: rgba(236, 240, 241, .3);
+    
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.btn:active:before {
+    width: 120%;
+    padding-top: 120%;
+  
+    transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+/* Styles, not important */
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+
+.radio-label {
+    margin-right: 10px;
+    text-transform: uppercase;
+}
+
+.display-lable {
+    text-transform: uppercase;
+}
+

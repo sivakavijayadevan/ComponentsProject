@@ -1,0 +1,47 @@
+<div class="input-continer row">
+    <div class="form-group">
+        <div class="col-md-3 col-xs-3 title-data" *ngIf="lableVisible">
+            <label class="display-text">{{displayName}} <span class="multi-attr" *ngIf="multilingualAttr">({{multilingualAttr}})</span></label>
+        </div>
+        <div class="col-md-9 col-xs-7 input-parent " *ngIf="!inputValue.length">
+            <input class="form-control" *ngIf="inputType != 'number'" [readonly]="readonly" [(ngModel)]="inputValue[valueKey]" [attr.type]="inputType"
+                [attr.placeholder]="placeHolder" />
+            <input class="form-control" *ngIf="inputType == 'number'" (keydown)="onKeyDown($event)"  oncopy="return false" onpaste="return false" [readonly]="readonly" [attr.min]="min" [attr.max]="max" [(ngModel)]="inputValue[valueKey]"
+                [attr.type]="inputType" [attr.placeholder]="placeHolder" />
+            <div class="validator-panel">
+                <div *ngIf="multilingualAttr" class="mutilingual-validator">
+                    <dpd-lang-validator [(inputvalue)]="inputValue"></dpd-lang-validator> 
+                </div>
+                <div *ngIf="validate === 'url'" class="url-validate">
+                    {{inputValue[valueKey] | urlvalidation}}
+                </div>
+            </div>
+            <!--<div *ngIf="!multilingualAttr" style="margin-top:5px;">
+                {{inputValue[valueKey]|json}}
+            </div>-->
+        </div>
+        <div *ngIf="inputValue.length">
+            <div *ngFor="let item of inputValue; let i = index " class="title-data">
+                <div class="col-md-7 col-xs-7" [class.col-md-push-3]="i" [class.col-xs-push-3]="i">
+                    <input class="form-control" *ngIf="inputType != 'number'" [readonly]="readonly" [(ngModel)]="inputValue[i]['name'][valueKey]"
+                        [attr.type]="inputType" [attr.placeholder]="placeHolder" />
+                    <input class="form-control" (keydown)="onKeyDown($event)"  *ngIf="inputType == 'number'" oncopy="return false" onpaste="return false" [readonly]="readonly" [attr.min]="min" [attr.max]="max" [(ngModel)]="inputValue[i]['name'][valueKey]"
+                        [attr.type]="inputType" [attr.placeholder]="placeHolder" />
+                    <div *ngIf="multilingualAttr" style="margin-top:5px;">
+                        <dpd-lang-validator [(inputvalue)]="inputValue[i]['name']"></dpd-lang-validator>
+                    </div>
+                </div>
+                <div *ngIf="multipleAttr && inputValue.length && loginData.roleid != 2" [class.col-md-push-3]="i" [class.col-xs-push-3]="i"
+                    class="col-md-2 col-xs-2 col-lg-2">
+                    <button (click)="clearValue($event, i)" *ngIf="i == 0 && inputValue.length == 1" class="btn btn-danger btn-circle"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+                    <button (click)="addInput($event, i)" *ngIf="(inputValue.length -1) == i" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
+                    <button (click)="removeInput($event, i)" *ngIf="i != 0 || inputValue.length > 1" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-remove"></i></button>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 col-xs-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+.input-continer {
+    padding: 8px;
+}
+
+.title-data {
+    padding-top: 10px;
+}
+
+.multi-attr{
+    color: red;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.display-text {
+    text-transform: uppercase;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.btn-circle {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding: 0px 0;
+    font-size: 10px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    margin-top: 5px;
+}
+.uneditable {
+        z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.41);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 83%;
+    height: 100%;
+}
+
+.input-parent {
+    position:relative;
+}
+.url-validate{
+    color: darkred;
+    display: inline-table;
+}
+.mutilingual-validator {
+    display: inline-table;
+}
+
+.validator-panel {
+     display: block;
+}

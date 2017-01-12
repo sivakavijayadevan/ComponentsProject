@@ -1,0 +1,9 @@
+<div *ngIf="error.messages.length>0" id="errorBox">
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" (click)="clearError()" aria-label="Close"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
+        <strong><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<span> {{error.title}} </span></strong>
+        <ul [class.err-scroll]="error.messages.length>10">
+            <li *ngFor="let message of error.messages">{{message}}</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="input-continer row">
+    <div class="form-group">
+        <div class="col-md-3 col-xs-3 title-data" *ngIf="lableVisible">
+            <label class="display-text">{{displayName}}<span class="multi-attr" *ngIf="multilingualAttr">({{multilingualAttr}})</span></label>
+        </div>
+        <div class="col-md-9 col-xs-7 input-parent ">
+            <span>H</span>
+            <input type="number" oncopy="return false" onpaste="return false" [readonly]="loginData.roleid == 2" [(ngModel)]="hoursValue" min="0" placeholder="HH" #hours (change)="convertValue($event, 'h', hours.value, minutes.value, seconds.value)"
+                (keyup)="convertValue($event, 'h', hours.value, minutes.value, seconds.value)" class="input-block form-control"
+            />
+            <span>M</span>
+            <input type="number" oncopy="return false" onpaste="return false" [readonly]="loginData.roleid == 2" [(ngModel)]="minutesValue" min="0" placeholder="MM" #minutes (change)="convertValue($event, 'm' , hours.value, minutes.value, seconds.value)"
+                (keyup)="convertValue($event, 'm', hours.value, minutes.value, seconds.value)" class="input-block form-control"
+            />
+            <span>S</span>
+            <input type="number" oncopy="return false" onpaste="return false" [readonly]="loginData.roleid == 2" [(ngModel)]="secondsValue" maxlength="2" (keydown)="onKeyDown($event)" (keyup)="onKeyUp($event)" min="0" max="60" placeholder="SS" #seconds (change)="convertValue($event, 's' , hours.value, minutes.value, seconds.value)"
+                (keyup)="convertValue($event, 's', hours.value, minutes.value, seconds.value)" class="input-block form-control"
+            />
+        </div>
+    </div>
+</div>

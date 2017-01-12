@@ -1,0 +1,71 @@
+<!-- template -->
+<dashboard-layout pageTitle="Album List">
+  <div class="home">
+    <div class="row">
+      <div class="col-md-4">
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> <strong> Filter By</strong>
+        <select class="btn btn-default btn-xs dropdown-toggle" [(ngModel)]="filterBy" (change)="GetAlbum($event.target.value,sortBy,searchBy)">
+          <option selected="selected" value="-1">ALL</option>
+          <option value="0">Not Yet Published, Modified </option>
+          <!--<option value="0">Modified</option>-->
+          <option value="1">Request To Publish</option>
+          <option value="2">Published</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <span class="glyphicon glyphicon-sort" aria-hidden="true"></span> <strong>Sort By</strong>
+        <select class="btn btn-default btn-xs dropdown-toggle" [(ngModel)]="sortBy" (change)="GetAlbum(filterBy,$event.target.value,searchBy)">
+          <option selected="selected" value="created_date">Created Date </option>
+          <option value="title">Title</option>
+          <option value="published">Published</option>
+        </select>
+        <span *ngIf="sortOrder" class="glyphicon glyphicon-sort-by-attributes" (click)="toggleSort()"></span>
+        <span *ngIf="!sortOrder" class="glyphicon glyphicon-sort-by-attributes-alt" (click)="toggleSort()"></span>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-sm pull-right">
+          <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchBy" (keyup.enter)="GetAlbum(filterBy,sortBy,searchBy)"
+            aria-describedby="basic-addon2">
+          <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true" (click)="GetAlbum(filterBy,sortBy,searchBy)"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [hidden]="!isLoading" id="loading-indicator">
+    <loading-indicator [isLoading]="isLoading"></loading-indicator>
+  </div>
+  <div [hidden]="isLoading" id="album-list">
+    <div class="list-continer">
+      <div class="list-items row" *ngFor="let item of albumList | paginate: { id: 'server', itemsPerPage: itemPerPage, currentPage: p, totalItems: total }">
+        <div class="col-lg-6">
+          <p>
+            <span>{{item.title}}</span> -
+            <span *ngIf="item.published_status==0 && !item.published">{{item.created_date}}</span>
+            <span *ngIf="item.published_status==0 && item.published">{{item.updated_date}}</span>
+            <span *ngIf="item.published_status==1">{{item.updated_date}}</span>
+            <span *ngIf="item.published_status==2">{{item.published}}</span>
+          </p>
+          <p>
+            <span class="label label-danger" *ngIf="item.published_status==0 && !item.published">Not Yet Published</span>
+            <span class="label label-warning" *ngIf="item.published_status==0 && item.published">Modified</span>
+            <span class="label label-info" *ngIf="item.published_status==1">Request To Publish</span>
+            <span class="label label-success" *ngIf="item.published_status==2">Published</span>
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <button class="btn btn-primary btn-sm " (click)="GoToAlbum(item.id)">View</button>
+          <button class="btn btn-primary btn-sm " *ngIf="loginData.roleid == 1" (click)="EditAlbum(item.id)">Edit</button>
+          <button class="btn btn-primary btn-sm " (click)="GoToSong(item.id)">Songs</button>
+          <!--<button class="btn btn-primary btn-sm " (click)="AddSong(item.id, item)">AddSong</button>-->
+        </div>
+      </div>
+      <div *ngIf="albumList.length==0" class="alert alert-warning" role="alert">No records found! </div>
+    </div>
+    <div *ngIf="albumList.length" class="is-text-centered cursor">
+      <pagination-controls (pageChange)="GetPage($event)" id="server"></pagination-controls>
+    </div>
+    <!--Error box-->
+    <dpd-error-box [error]="error"></dpd-error-box>
+    <!--/ Error box-->
+  </div>
+</dashboard-layout>

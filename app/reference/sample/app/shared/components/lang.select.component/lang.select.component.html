@@ -1,0 +1,36 @@
+<div class="input-continer row">
+    <div class="form-group">
+        <div class="col-md-3 col-xs-3 title-data">
+            <label class="display-text">{{displayName}} <span class="multi-attr" *ngIf="multilingualAttr">({{multilingualAttr}})</span></label>
+        </div>
+        <div class="col-md-9 col-xs-7" *ngIf="!inputValue.length">
+
+            <select class="form-control" *ngIf="!multilingualAttr" [disabled]="loginData.roleid == 2" [(ngModel)]="inputValue[valueKey]" (change)="selectedValue($event)">
+                    <option *ngFor="let itmeOption of selectOptions" [value]="itmeOption[optionKey]">{{itmeOption[optionDisplayKey]}}</option>
+                </select>
+            <select class="form-control" *ngIf="multilingualAttr" [disabled]="loginData.roleid == 2" [(ngModel)]="inputValue[valueKey]" (change)="selectedValue($event)">
+                    <option *ngFor="let itmeOption of selectOptions" [value]="itmeOption[optionKey]">{{itmeOption[optionDisplayKey][multilingualAttr]}}</option>
+                </select>
+        </div>
+        <div *ngIf="inputValue.length">
+            <div *ngFor="let item of inputValue; let i = index " class="title-data">
+                <div class="col-md-7 col-xs-7" [class.col-md-push-3]="i" [class.col-xs-push-3]="i">
+                    <select class="form-control" [ngModel]="item[valueKey]" [disabled]="loginData.roleid == 2" (change)="selectedValue($event, i)">
+                            <option *ngFor="let itmeOption of selectOptions"  [value]="itmeOption[optionKey]">{{itmeOption[optionDisplayKey]}}</option>
+                        </select>
+                </div>
+                <div *ngIf="multipleAttr && inputValue.length && loginData.roleid != 2" [class.col-md-push-3]="i" [class.col-xs-push-3]="i" class="col-md-2 col-xs-2 col-lg-2">
+                    <button (click)="addInput($event, i)" *ngIf="(inputValue.length -1) == i" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
+                    <button (click)="removeInput($event, i)" *ngIf="(inputValue.length -1) != i" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-remove"></i></button>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 col-xs-1">
+                        <label> </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

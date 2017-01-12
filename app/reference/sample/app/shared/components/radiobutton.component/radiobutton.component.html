@@ -1,0 +1,5 @@
+<div [class.radio-continer]="horizontalStatus" [class.radio-v-continer]="verticalStatus" *ngFor="let item of radioPros; let i = index ">
+    <input type="radio" class="radio-input" [name]="item.groupname" [id]="item.option.id" (click)="radioOnClick(item, $event, i)"
+    [checked]="item.option.status" />
+    <label class="radio-label" [attr.for]="item.option.id">{{item.option.displayName}}</label>
+</div>

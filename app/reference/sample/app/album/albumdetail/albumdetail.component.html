@@ -1,0 +1,16 @@
+<!-- template -->
+<dashboard-layout pageTitle="Album Detail">
+    <div class="panel panel-default details-view">
+        <div class="panel-body">
+            <div class="album-details">
+                <div class="form-header">
+                    <dpd-radio-button [options]="languageRadioOption" (selectChange)="langSelect($event)"></dpd-radio-button>
+                </div>
+                <dpd-album-view [isheader]="false" [isfullview]="true" [viewlang]="albumFormLang" [albumid]="albumId" (error)="getErrorMessage($event)"></dpd-album-view>
+            </div>
+            <!--Error box-->
+            <dpd-error-box [error]="error"></dpd-error-box>
+            <!--/ Error box-->
+        </div>
+    </div>
+</dashboard-layout>

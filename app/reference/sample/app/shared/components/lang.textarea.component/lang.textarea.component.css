@@ -1,0 +1,33 @@
+.input-continer {
+    padding-left: 8px;
+}
+
+.multi-attr{
+    color: red;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.textlable{
+    padding-right: 0px !important;   
+}
+
+.title-data {
+    padding-top: 10px;
+}
+
+.btn-circle {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding: 0px 0;
+    font-size: 10px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    margin-top: 5px;
+    margin-left: -15px;
+}
+
+.display-text {
+  text-transform: uppercase;
+}

@@ -1,0 +1,77 @@
+<div class="form-sub-heading">
+    <div class="pull-left"> Credit</div>
+    <div class="pull-right criticsbut">
+        <button *ngIf="loginData.roleid != 2" type="button" class="add" data-toggle="modal" data-target="#myModal"> Add Credit</button>
+    </div>
+</div>
+<div *ngFor="let item of Keys; let i = index " #sortContiner class="row before-sort">
+    <div class="col-lg-1 col-md-1 col-sm-1" *ngIf="loginData.roleid != 2">
+        <div >
+            <button class="arrows" (click)="listSort('up',i, sortContiner);" *ngIf="i"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+            <br/>
+            <button class="arrows" (click)="listSort('down',i, sortContiner);" *ngIf="i !== (Keys.length -1)"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+        </div>
+        <!--<div style="display:inline-block;">
+            {{inputValue['display_rule']['entity']['credit'][item.key]['order']}}
+        </div>-->
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1" style="padding-top:15px;">
+        <button (click)="deleteCredit(item.key, i, item.order)" *ngIf="item.new"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button (click)="editCredit(item.key, i)" data-toggle="modal" data-target="#myModal" *ngIf="item.new"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    </div>
+
+    <dpd-lang-input class="col-lg-8 col-md-8 col-sm-10" [displayname]="inputValue['display_rule']['entity']['credit'][item.key]['label']['en']"
+        [placeholder]="inputValue['display_rule']['entity']['credit'][item.key]['label']['en']" [multilingual]="multilingualAttr"
+        [inputvalue]="inputValue['song']['credit'][item.key]" [multiple]="'true'" [valuekey]="multilingualAttr">
+    </dpd-lang-input>
+
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" (click)="addCreditClose()" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Credit</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" #creditForm role="form" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="lblenglish">English:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="lblenglish" [(ngModel)]="data.en" placeholder="English" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="lbltamil">Tamil:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="lbltamil" [(ngModel)]="data.ta" placeholder="Tamil" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="lblhindi">Hindi:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="lblhindi" [(ngModel)]="data.hi" placeholder="Hindi" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="lbltelugu">Telugu:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="lbltelugu" [(ngModel)]="data.tu" placeholder="Telugu" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <!--{{data|json}}-->
+                <button type="button" class="btn btn-info" data-dismiss="modal" [disabled]="!data.en || !data.ta || !data.hi || !data.tu"
+                    (click)="addCredit(data.en,data);"><span>Save</span></button>
+                <button (click)="addCreditClose()" type="button" class="btn btn-warning" data-dismiss="modal"><span>Close</span></button>
+            </div>
+        </div>
+    </div>
+</div>

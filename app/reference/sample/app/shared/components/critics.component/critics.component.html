@@ -1,0 +1,35 @@
+<div class="form-sub-heading">
+    <div class="pull-left"> Critics</div>
+    <div class="pull-right criticsbut">
+        <button *ngIf="loginData.roleid != 2" (click)="AddCritics()" class="add"> Add New Critics</button>
+    </div>
+</div>
+
+<div *ngFor="let critic of inputValue; let i = index;" style="border:2px solid #000; margin-bottom:10px; padding-bottom:30px;">
+    <div class="block-element">
+        <dpd-lang-select class="col-lg-6" [displayname]="'Author'" [placeholder]="'Author'" [(inputvalue)]="critic['author']" [valuekey]="'slug'"
+            [selectoption]="authorArray" [optiondisplaykey]="'name'" [optionkey]="'slug'" (datachange)="selectionChange($event, i)"
+            [updatekey]="'author'" [multilingual]="multilingualAttr">
+        </dpd-lang-select>
+    </div>
+    <div class="col-lg-offset-3">
+        <img class="img-responsive author-img" alt="img" [src]="critic['author'].image" onError="this.src='/src/assets/img/avatar.png'"
+        />
+    </div>
+    <div *ngFor="let criticKey of CriticsArray">
+        <div class="block-element" *ngIf="criticKey != 'overall'">
+            <dpd-lang-input class="col-lg-6" [inputtype]="'number'" (keyup)="onChange(i, $event)" (change)="onChange(i, $event)" [displayname]="criticKey +' Score'"
+                [multiple]="" [inputvalue]="critic['review'][criticKey]" [valuekey]="'score'">
+            </dpd-lang-input>
+        </div>
+        <div class="block-element">
+            <dpd-lang-text-area class="col-lg-6" [displayname]="criticKey +' Comment'" [multiple]="" [multilingual]="multilingualAttr"
+                [inputvalue]="critic['review'][criticKey]['comment']" [valuekey]="multilingualAttr">
+            </dpd-lang-text-area>
+        </div>
+    </div>
+    <!--<dpd-lang-input [displayname]="'Rating'" [inputtype]="'number'" [multiple]="" [inputvalue]="critic" [valuekey]="'rating'">
+    </dpd-lang-input>-->
+    <div style="padding:10px;">RATING - {{critic.rating|nan}}</div>
+    <div style="padding:10px;">OVERALL SCORE - {{critic.review.overall.score|nan}}</div>
+</div>

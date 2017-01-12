@@ -1,0 +1,12 @@
+.input-continer {
+    padding: 8px;
+}
+
+.inputs {
+  display: inline-block;
+  width: 150px;
+}
+
+.display-text {
+  text-transform: uppercase;
+}

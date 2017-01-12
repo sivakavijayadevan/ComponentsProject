@@ -1,0 +1,58 @@
+<div [hidden]="!isLoading" id="loading-indicator">
+    <loading-indicator [isLoading]="isLoading"></loading-indicator>
+</div>
+<div [hidden]="isLoading" class="album-form-group">
+    <div>
+        <!--<button class="copy-btn" (click)="copyFrom('ta', 'hi')"><span>C-TA</span></button>-->
+        <button class="copy-btn" *ngIf="loginData.roleid != 2" (click)="copyFrom('en', 'hi')"><span>Copy from english to hindi & telugu</span></button>
+    </div>
+    <dpd-lang-select [displayname]="'language'" [placeholder]="'language'" [(inputvalue)]="albumRootObject['album']['language']"
+        [valuekey]="'code'" [selectoption]="languageSelectOption" [optiondisplaykey]="'name'" [optionkey]="'code'" (datachange)="selectionChange($event)"
+        [updatekey]="'language'">
+    </dpd-lang-select>
+
+    <dpd-lang-input [displayname]="'Title'" [placeholder]="'Title'" [multiple]="" [(inputvalue)]="albumRootObject['album']['title']"
+        [multilingual]="languageId" [valuekey]="languageId"></dpd-lang-input>
+
+    <dpd-lang-text-area [displayname]="'Description'" [placeholder]="'Description'" [multiple]="" [multilingual]="languageId"
+        [inputvalue]="albumRootObject['album']['description']" [valuekey]="languageId"></dpd-lang-text-area>
+
+    <div *ngIf="albumRootObject['album']['type']">
+        <dpd-lang-select [displayname]="'Type'" [placeholder]="'Type'" [(inputvalue)]="albumRootObject['album']['type']" [valuekey]="'id'"
+            [selectoption]="albumTypeSelectOption" [optiondisplaykey]="'name'" [optionkey]="'id'" (datachange)="selectionChange($event)"
+            [updatekey]="'type'">
+        </dpd-lang-select>
+    </div>
+
+    <dpd-lang-input [displayname]="'Image Url'" [validate]="'url'" [placeholder]="'Image Url'" [multiple]="" [(inputvalue)]="albumRootObject['album']"
+        [valuekey]="'thumbnail'"></dpd-lang-input>
+
+    <div class="active-continer row">
+        <div class="col-md-3 col-xs-3 col-lg-3">
+            <label class="display-lable">Status</label>
+        </div>
+        <div class="col-md-9 col-xs-9 col-lg-9">
+            <input type="radio" class="radio-input" [disabled]="loginData.roleid == 2" name="active" id="active" (click)="activeClick(true)"
+                [checked]="albumRootObject['album']['active']" />
+            <label class="radio-label" for="active">ACTIVE</label>
+
+            <input type="radio" class="radio-input" [disabled]="loginData.roleid == 2" name="active" id="inactive" (click)="activeClick(false)"
+                [checked]="!albumRootObject['album']['active']" />
+            <label class="radio-label" for="inactive">INACTIVE</label>
+        </div>
+    </div>
+    <!--Error box-->
+    <dpd-error-box [error]="error"></dpd-error-box>
+    <!--/ Error box-->
+    <div class="btn-continer">
+
+        <button *ngIf="!albumId && loginData.roleid == 1" class="btn" (click)="saveBtn($event)"><span>save</span></button>
+        <button *ngIf="albumId && loginData.roleid == 1" class="btn" (click)="editBtn($event)"><span>save</span></button>
+        <button *ngIf="albumId && albumInfo.published_status==0 && loginData.roleid == 1" class="btn btn-request" (click)="requestPublishAlbum() ">
+            <span>Request To Publish</span>
+        </button>
+        <button *ngIf="albumId && loginData.roleid == 1" class="btn btn-warning btn-sm " (click)="previewAlbum() ">
+            <span>  Preview</span>
+        </button>
+    </div>
+</div>

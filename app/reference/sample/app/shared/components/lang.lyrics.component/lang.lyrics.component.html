@@ -1,0 +1,9 @@
+<div class="form-group row title-data" *ngFor="let item of inputValue; let i = index ">
+    <div class="col-md-2 ">
+        <label class="display-text">{{item['language']['name']}}</label>
+    </div>
+    <div class="col-md-10">
+        <textarea rows="10" class="form-control" [readonly]="loginData.roleid == 2" [(ngModel)]="item['data']" placeholder="lyrics"></textarea>
+    </div>
+
+</div>

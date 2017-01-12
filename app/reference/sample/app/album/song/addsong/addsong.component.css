@@ -1,0 +1,10 @@
+dpd-radio-button {
+    position: fixed;
+    top: 155px;
+    right: 2px;
+    z-index: 100;
+}
+
+#add-song{
+    margin-right: 40px;
+}

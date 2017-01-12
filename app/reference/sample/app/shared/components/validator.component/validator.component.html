@@ -1,0 +1,16 @@
+<div *ngIf="!validationType" style="display:inline-block;">
+    <div *ngFor="let item of validatorArray" [class.lang-key-error]="!inputValue[item] || !(inputValue[item] | trimspace)" [class.lang-key-success]="inputValue[item] && (inputValue[item] | trimspace)">
+        <span class="lang-key">{{item}}</span>
+        <span *ngIf="!inputValue[item] || !(inputValue[item] | trimspace)"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <span *ngIf="inputValue[item] && (inputValue[item] | trimspace)"><i class="fa fa-check" aria-hidden="true"></i></span>
+    </div>
+
+</div>
+<div *ngIf="validationType" style="display:inline-block;">
+    <div *ngFor="let item of validatorArray" [class.lang-key-error]="!inputValue[item][valueKey] || !(inputValue[item][valueKey] | trimspace)"
+        [class.lang-key-success]="inputValue[item][valueKey] && (inputValue[item][valueKey] | trimspace)">
+        <span class="lang-key">{{item}}</span>
+        <span *ngIf="!inputValue[item][valueKey] || !(inputValue[item][valueKey] | trimspace)"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <span *ngIf="inputValue[item][valueKey] && (inputValue[item][valueKey] | trimspace)"><i class="fa fa-check" aria-hidden="true"></i></span>
+    </div>
+</div>

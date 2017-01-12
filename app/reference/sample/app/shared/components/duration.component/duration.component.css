@@ -1,0 +1,20 @@
+.input-block {
+    display: inline-block;
+    max-width: 70px;
+}
+
+.input-continer {
+    padding: 8px;
+}
+
+.input-parent {
+    position:relative;
+}
+
+.display-text {
+  text-transform: uppercase;
+}
+
+.title-data {
+    padding-top: 10px;
+}

@@ -1,0 +1,17 @@
+<div class="row input-continer ">
+    <div class="col-lg-3 display-text ">
+        <label>{{displayName}}</label>
+    </div>
+    <div class="col-lg-9">
+        <!--<div *ngIf="inputKey == 'published_on'">
+            <input type='date' id='publishedon' class="form-control" [(ngModel)]="dates" />
+        </div>
+        <div *ngIf="inputKey == 'launch_date'">
+            <input type='date' id='launchDate' class="form-control" [(ngModel)]="dates" />
+        </div>-->
+        <!--<input type='text' *ngIf="inputKey == 'launch_date'" id='launchdate' class="form-control" [(ngModel)]="dates" />-->
+        <input type="text" oncopy="return false" onpaste="return false" class="form-control inputs" [disabled]="loginData.roleid == 2" readonly datePicker [(ngModel)]="dates" (changedate)="onChangeDate($event)" style="display:inline-table;" />
+        <input type="text" oncopy="return false" onpaste="return false" class="form-control inputs" [readonly]="loginData.roleid == 2" (keydown)="onKeyDown($event)"  timePicker [(ngModel)]="times" (changetimes)="onChangeTime($event)" style="display:inline-table;"
+        />
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.list-continer {
+    padding: 10px;
+}
+
+.list-items {
+    background-color: #FFF;
+    padding: 10px;
+    box-shadow: 0px 0px 8px -5px #000;
+    margin-bottom: 3px;
+    margin-left: -10px;
+    margin-right: -10px;
+    border: 1px solid #ddd;
+}
+
+.home{
+    margin-top: 20px;
+}

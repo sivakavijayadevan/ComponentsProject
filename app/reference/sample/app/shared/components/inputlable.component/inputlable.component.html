@@ -1,0 +1,45 @@
+<div class="input-continer row">
+    <div class="form-group">
+        <div class="col-md-2 col-xs-3 title-data">
+            <label>{{lableValue['name'][multilingualAttr]}} <span class="multi-attr" *ngIf="multilingualAttr">({{multilingualAttr}})</span></label>
+
+        </div>
+        <input class="form-control" *ngIf="!multipleAttr" [(ngModel)]="inputValue[valueKey]" [attr.type]="item.type" [attr.placeholder]="item.placeholder"
+        />
+
+        <div *ngFor="let item of inputValue; let i = index " *ngIf="!multipleAttr" class="title-data">
+            <div class="col-md-2 col-xs-3" *ngIf="i!=0">
+
+            </div>
+            <div class="col-md-4 ol-xs-7">
+                <input class="form-control" *ngIf="inputValue.length" [(ngModel)]="inputValue['name'][valueKey]" [attr.type]="item.type"
+                    [attr.placeholder]="item.placeholder" />
+            </div>
+            <div *ngIf="multipleAttr" class="col-md-2 col-xs-2 col-lg-1">
+                <button (click)="addInput($event, i)" *ngIf="(inpuLang.length -1) == i" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-plus"></i></button>
+                <button (click)="removeInput($event, i)" *ngIf="(inpuLang.length -1) != i" class="btn btn-danger btn-circle"><i class="glyphicon glyphicon-remove"></i></button>
+            </div>
+            <div class="row">
+                <div class="col-md-1 col-xs-1">
+                    <div *ngIf="multilingualAttr">
+                        <!-- normally this stuff would be on the html element -->
+                        <!--[if lt IE 7]>  <div class="ie ie6 lte9 lte8 lte7"> <![endif]-->
+                        <!--[if IE 7]>     <div class="ie ie7 lte9 lte8 lte7"> <![endif]-->
+                        <!--[if IE 8]>     <div class="ie ie8 lte9 lte8"> <![endif]-->
+                        <!--[if IE 9]>     <div class="ie ie9 lte9"> <![endif]-->
+                        <!--[if gt IE 9]>  <div> <![endif]-->
+                        <!--[if !IE]><!-->
+                        <!--<![endif]-->
+                        <!--<div>
+                                <div class="wrappers">
+                                    <code class="code">&#x2713;</code>
+                                    <div class="tooltip">I am a tooltip!</div>
+                                </div>
+                            </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

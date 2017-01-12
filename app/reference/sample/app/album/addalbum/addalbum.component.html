@@ -1,0 +1,14 @@
+<!-- template -->
+<dashboard-layout pageTitle="Album" class="contentpage">
+    <div class="panel panel-default card card-1">
+        <div class="panel-heading subtitle">Add Album</div>
+        <div class="panel-body">
+            <div>
+                <div class="form-header">
+                    <dpd-radio-button [options]="languageRadioOption" (selectChange)="langSelect($event)"></dpd-radio-button>
+                </div>
+                <album-form [lang]="albumFormLang" [albumid]="albumId"></album-form>
+            </div>
+        </div>
+    </div>
+</dashboard-layout>

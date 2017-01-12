@@ -1,0 +1,18 @@
+<!-- template -->
+<dashboard-layout pageTitle="Song Detail" class="contentpage">
+    <div class="panel panel-default details-view">
+        <div class="panel-body">
+            <div class="form-header">
+                <dpd-radio-button [options]="languageRadioOption" (selectChange)="langSelect($event)"></dpd-radio-button>
+            </div>
+            <dpd-album-view [viewlang]="songFormLang" [albumid]="albumId" [isfullview]="false" (error)="getErrorMessage($event)"></dpd-album-view>
+            <dpd-song-view [viewlang]="songFormLang" [albumid]="albumId" [songid]="songId" (error)="getErrorMessage($event)"></dpd-song-view>
+            <div class="back-bt">
+                <button class="btn btn-circle back" (click)="backcall($event)"><span></span></button>
+            </div>
+            <!--Error box-->
+            <dpd-error-box [error]="error"></dpd-error-box>
+            <!--/ Error box-->
+        </div>
+    </div>
+</dashboard-layout>

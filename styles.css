@@ -7,3 +7,7 @@ h1 {
 .lblBack{
   background: #369;
 }
+
+.lblBack span{
+  color:red;
+}

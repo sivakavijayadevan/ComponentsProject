@@ -1,0 +1,20 @@
+<div class="input-continer row">
+    <div class="form-group">
+        <div class="col-md-3 col-xs-3 textlable">
+            <label class="display-text">{{displayName}} <span class="multi-attr" *ngIf="multilingualAttr">({{multilingualAttr}})</span></label>
+        </div>
+        <div class="title-data">
+            <div class="col-md-9 col-xs-7">
+                <textarea rows="10" class="form-control" [readonly]="loginData.roleid == 2" [(ngModel)]="inputValue[valueKey]" [attr.placeholder]="placeHolder"></textarea>
+                <div *ngIf="multilingualAttr" style="margin-top:5px;">
+                    <dpd-lang-validator [(inputvalue)]="inputValue"></dpd-lang-validator>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 col-xs-1">
+                    <label> </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

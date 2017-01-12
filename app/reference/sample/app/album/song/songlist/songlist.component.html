@@ -1,0 +1,58 @@
+<!-- template -->
+<dashboard-layout pageTitle="Song List">
+  <dpd-album-view [viewlang]="'en'" [albumid]="albumId" [isfullview]="false"></dpd-album-view>
+  <div class="home">
+    <div class="row">
+      <div class="col-md-2"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> Song List
+      </div>
+      <div class="col-md-3">
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> <strong> Filter By</strong>
+        <select class="btn btn-default btn-xs dropdown-toggle" (change)="getSongByAlbum($event.target.value)">
+          <option selected="selected" value="-1">ALL</option>
+          <option value="0">Not Yet Published, Modified </option>
+          <!--<option value="0">Modified</option>-->
+          <option value="1">Request To Publish</option>
+          <option value="2">Published</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary btn-sm" *ngIf="loginData.roleid == 1" (click)="AddSong()">AddSong</button>
+      </div>
+    </div>
+  </div>
+  <div class="list-continer">
+    <div [hidden]="!isLoading" id="loading-indicator">
+      <loading-indicator [isLoading]="isLoading"></loading-indicator>
+    </div>
+    <div [hidden]="isLoading" id="song-list">
+      <div class="list-items row" *ngFor="let item of songList; let i = index ">
+
+        <div class="col-lg-6">
+          <p>
+            <span>{{item.song_title}}</span> -
+            <span *ngIf="item.published_status==0 && !item.published">{{item.created_date}}</span>
+            <span *ngIf="item.published_status==0 && item.published">{{item.updated_date}}</span>
+            <span *ngIf="item.published_status==1">{{item.updated_date}}</span>
+            <span *ngIf="item.published_status==2">{{item.published}}</span>
+          </p>
+          <p>
+            <span class="label label-danger" *ngIf="item.published_status==0 && !item.published">Not Yet Published</span>
+            <span class="label label-warning" *ngIf="item.published_status==0 && item.published">Modified</span>
+            <span class="label label-info" *ngIf="item.published_status==1">Request To Publish</span>
+            <span class="label label-success" *ngIf="item.published_status==2">Published</span>
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <button class="btn btn-primary btn-sm" (click)="viewSong(item.id)">View</button>
+          <button *ngIf="loginData.roleid == 1" class="btn btn-primary btn-sm " (click)="editSong(item.id)">Edit</button>
+        </div>
+      </div>
+      <div *ngIf="songList.length === 0">
+        No Songs
+      </div>
+      <!--Error box-->
+      <dpd-error-box [error]="error"></dpd-error-box>
+      <!--/ Error box-->
+    </div>
+  </div>
+</dashboard-layout>

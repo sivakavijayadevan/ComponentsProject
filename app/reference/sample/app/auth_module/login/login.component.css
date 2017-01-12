@@ -1,0 +1,11 @@
+body {
+    background: #d2d6de;
+}
+
+.error{
+    border-color: #a94442;
+} 
+.errormessage{
+    color:#a94442;
+    font-weight: 600;
+}

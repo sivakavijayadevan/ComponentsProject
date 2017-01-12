@@ -1,0 +1,33 @@
+.back-bt {
+    bottom: 55px;
+    position: fixed;
+    right: 0;
+}
+
+.back:before{
+    content: "\2190";
+    font-size: 15px;
+}
+
+.back{
+    background-color: #3c8dbc;
+    border-radius: 51px;    
+}
+    
+.title{
+    margin-top: 0px;
+}
+dpd-radio-button {
+    position: fixed;
+    right: 2px;
+    z-index: 100;
+}
+.details-view{
+    margin-right: 40px;
+}
+#errorBox{
+    position: fixed;
+    bottom: 20px;
+    right: 20%;
+    width: 50%;
+}

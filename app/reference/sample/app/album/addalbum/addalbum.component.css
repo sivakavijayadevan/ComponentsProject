@@ -1,0 +1,28 @@
+.form-header{
+    text-align: left;
+    padding-left: 25px;
+}
+.contentpage{
+    background-color:  #fff;
+}
+.card{
+    background: #fff;
+    border-radius: 2px; 
+    position: relative;
+}
+.card-1{
+     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.subtitle{
+    font-size: 15px;
+}
+
+dpd-radio-button {
+    position: fixed;
+    right: 2px;
+    z-index: 100;
+}
+.panel-default{
+    margin-right: 40px;
+}

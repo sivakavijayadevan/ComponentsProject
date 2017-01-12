@@ -1,0 +1,20 @@
+<!-- template -->
+<dashboard-layout pageTitle="Song" class="contentpage">
+    <div id="add-song">
+        <dpd-album-view [viewlang]="albumFormLang" [albumid]="albumId" [isfullview]="false"></dpd-album-view>
+        <div class="panel panel-default">
+            <div class="panel-heading">Add Song -- {{albumRootObject["album"]["title"]["en"]}}</div>
+            <div class="panel-body">
+                <div>
+                    <div class="form-header">
+                        <dpd-radio-button [options]="languageRadioOption" (selectChange)="langSelect($event)"></dpd-radio-button>
+                    </div>
+                    <song-form [lang]="albumFormLang" [albumid]="albumId" [songid]="songId"></song-form>
+                    <!--Error box-->
+                    <dpd-error-box [error]="error"></dpd-error-box>
+                    <!--/ Error box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</dashboard-layout>

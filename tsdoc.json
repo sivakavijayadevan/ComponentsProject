@@ -1,0 +1,37 @@
+{
+	"tags":
+	{
+		"allowUnknownTags" : true
+	},
+	"plugins":[
+		 "plugins/markdown"
+		,"/Program Files/nodejs/node_modules/tsdoc/template/plugins/TSDoc.js"
+	],
+	"opts":
+	{
+		"template"	:"/Program Files/nodejs/node_modules/tsdoc/template",
+		"recurse"	:"true"
+	},
+	"templates" : {
+		"cleverLinks"     : false,
+		"monospaceLinks"  : false
+	},
+	"source":
+	{
+		"includePattern": "(\\.d)?\\.ts$"
+	},
+	"markdown"  : {
+		"parser"   : "gfm",
+		"hardwrap" : true
+	},
+	"tsdoc":{
+		"source"		:"/testing/ComponentsProject/app/",
+		"destination"	:"/testing/ComponentsProject/docs",
+		"tutorials"		:"",
+		"systemName"	: "ComponentsProject",
+		"footer"		: "",
+		"copyright"		: "ComponentsProject Copyright © 2017 sivakavij.",
+		"outputSourceFiles" : true,
+		"commentsOnly": true
+	}
+}
